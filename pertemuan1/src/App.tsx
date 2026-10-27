@@ -3,13 +3,18 @@ import KartuProfil from './KartuProfil';
 import BadgeSkill from './BadgeSkill';
 import './App.css';
 
-// Ganti dengan akun asli kamu sebelum dipublikasikan.
+// ---------- 1. Data ----------
+// Dipisah dari tampilan: kalau mau ganti isi, cukup ubah di sini.
 const tautan = [
-  { label: 'Email', href: 'mailto:adriel.reihansyah@example.com' },
-  { label: 'GitHub', href: 'https://github.com/' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
+  { label: 'Email', href: 'mailto:adriel.243040091@unpas.ac.id' },
+  { label: 'GitHub', href: 'https://github.com/AdrielReihansyah' },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/adriel-reihansyah-setiawan-132883352/',
+  },
 ];
 
+// "as const" membuat nilai tidak bisa diubah & level dibaca sebagai tipe khusus
 const daftarSkill = [
   { id: 1, namaSkill: 'React JS', level: 'Menengah' },
   { id: 2, namaSkill: 'TypeScript', level: 'Pemula' },
@@ -24,37 +29,39 @@ const daftarProyek = [
     id: 201,
     judul: 'Portofolio Mini',
     deskripsi:
-      'Halaman yang sedang kamu lihat ini: dibangun dengan React 19, TypeScript, dan Vite, memakai komponen kartu profil dan badge skill yang reusable serta tema terang/gelap otomatis.',
+      'Halaman yang sedang kamu lihat: React 19, TypeScript, dan Vite, dengan komponen kartu profil dan badge skill yang reusable.',
     tech: ['React', 'TypeScript', 'Vite'],
   },
   {
     id: 202,
     judul: 'Sistem Informasi Praktikum',
     deskripsi:
-      'Aplikasi pengelolaan jadwal dan nilai praktikum: autentikasi multi-role untuk asisten dan mahasiswa, CRUD jadwal, serta rekap nilai per kelas.',
+      'Pengelolaan jadwal dan nilai praktikum: login multi-role, CRUD jadwal, dan rekap nilai per kelas.',
     tech: ['Laravel', 'PostgreSQL', 'Blade'],
   },
   {
     id: 203,
     judul: 'Dashboard Inventaris Lab',
     deskripsi:
-      'Papan ringkasan stok alat laboratorium dengan filter kategori, pencarian, dan penanda alat yang perlu diadakan kembali.',
+      'Ringkasan stok alat laboratorium dengan filter kategori, pencarian, dan penanda alat yang harus diadakan.',
     tech: ['React', 'PostgreSQL', 'REST API'],
   },
   {
     id: 204,
     judul: 'REST API Perpustakaan',
     deskripsi:
-      'Endpoint peminjaman dan pengembalian buku dengan validasi request, pencatatan denda keterlambatan, dan dokumentasi OpenAPI.',
+      'Endpoint peminjaman dan pengembalian buku: validasi request, denda keterlambatan, dan dokumentasi OpenAPI.',
     tech: ['Laravel', 'PostgreSQL', 'OpenAPI'],
   },
 ];
 
+// ---------- 2. Tampilan ----------
 function App() {
   return (
     <div className="app">
+      {/* Navigasi */}
       <nav className="nav">
-        <strong>adriel.dev</strong>
+        <span className="brand">adriel.dev</span>
         <div className="nav-links">
           <a href="#tentang">Tentang</a>
           <a href="#skill">Skill</a>
@@ -63,6 +70,7 @@ function App() {
         </div>
       </nav>
 
+      {/* Hero: perkenalan + komponen KartuProfil */}
       <header className="hero">
         <div>
           <p className="eyebrow">Mahasiswa Informatika · Kelas E</p>
@@ -82,24 +90,22 @@ function App() {
           </div>
         </div>
 
-        <div>
-          <KartuProfil
-            nama="Adriel Reihansyah Setiawan"
-            npm="233040091"
-            kelas="E"
-            status="Aktif"
-          />
-        </div>
+        <KartuProfil
+          nama="Adriel Reihansyah Setiawan"
+          npm="233040091"
+          kelas="E"
+          status="Aktif"
+        />
       </header>
 
+      {/* Tentang */}
       <section id="tentang" className="section">
         <h2>Tentang Saya</h2>
         <p className="lead">
-          Mahasiswa program studi Informatika yang sedang mendalami rekayasa web:
-          dari menyusun komponen antarmuka, mengelola data relasional, sampai
-          merilis aplikasi. Terbiasa bekerja dengan struktur proyek React + Vite
-          dan Laravel, serta senang merapikan detail kecil seperti aksesibilitas
-          dan konsistensi tampilan.
+          Mahasiswa Informatika yang sedang mendalami rekayasa web: dari menyusun
+          komponen antarmuka, mengelola data relasional, sampai merilis aplikasi.
+          Terbiasa dengan struktur React + Vite dan Laravel, serta senang merapikan
+          detail kecil seperti aksesibilitas dan konsistensi tampilan.
         </p>
 
         <dl className="facts">
@@ -122,6 +128,7 @@ function App() {
         </dl>
       </section>
 
+      {/* Skill: map data -> komponen BadgeSkill */}
       <section id="skill" className="section">
         <h2>Skill &amp; Tools</h2>
         <p>Teknologi yang saya pakai sehari-hari di perkuliahan dan proyek pribadi.</p>
@@ -136,6 +143,7 @@ function App() {
         </div>
       </section>
 
+      {/* Proyek: map data -> kartu */}
       <section id="proyek" className="section">
         <h2>Proyek Pilihan</h2>
         <p>Kumpulan proyek perkuliahan dan eksplorasi mandiri.</p>
@@ -156,6 +164,7 @@ function App() {
         </div>
       </section>
 
+      {/* Kontak: map data -> tombol */}
       <section id="kontak" className="section">
         <h2>Mari Berkolaborasi</h2>
         <p className="lead">
@@ -163,8 +172,15 @@ function App() {
           development. Balasan paling cepat lewat email.
         </p>
         <div className="actions">
+          {/* tautan http dibuka di tab baru, mailto tetap di tab ini */}
           {tautan.map((t) => (
-            <a key={t.label} className="btn btn-ghost" href={t.href}>
+            <a
+              key={t.label}
+              className="btn btn-ghost"
+              href={t.href}
+              target={t.href.startsWith('http') ? '_blank' : undefined}
+              rel="noreferrer"
+            >
               {t.label}
             </a>
           ))}
