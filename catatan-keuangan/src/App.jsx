@@ -34,10 +34,16 @@ function App() {
 
   return (
     <div className="wadah">
-      <h1 className="judul">Catatan Keuangan Mini</h1>
-      <p className="subjudul">Modul 2: React Lanjutan - Tugas 3</p>
+      <header className="hero">
+        <h1>Catatan Keuangan Mini</h1>
+        <p>Modul 2: React Lanjutan - Tugas 3</p>
+        <div className="identitas">
+          <span>👤 Adriel Reihansyah Setiawan</span>
+          <span>🎓 NPM: 243040091</span>
+        </div>
+      </header>
 
-      <section className="kartu">
+      <section className="kartu saldo-kartu">
         <h2>Total Saldo</h2>
         <p className={`saldo ${saldo >= 0 ? 'pemasukan' : 'pengeluaran'}`}>
           Rp {saldo.toLocaleString('id-ID')}
@@ -61,6 +67,10 @@ function App() {
           </ul>
         )}
       </section>
+
+      <footer className="footer">
+        © 2026 Adriel Reihansyah Setiawan · NPM 243040091
+      </footer>
     </div>
   );
 }

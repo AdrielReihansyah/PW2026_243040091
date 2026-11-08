@@ -6,7 +6,7 @@ function ItemTransaksi({ transaksi, onHapus }) {
     <li className="item">
       <span>{transaksi.keterangan}</span>
       {/* className dinamis: hijau untuk pemasukan, merah untuk pengeluaran */}
-      <span className={adalahPemasukan ? 'pemasukan' : 'pengeluaran'}>
+      <span className={`nominal ${adalahPemasukan ? 'pemasukan' : 'pengeluaran'}`}>
         {adalahPemasukan ? '+' : '-'} Rp {transaksi.nominal.toLocaleString('id-ID')}
       </span>
       <button

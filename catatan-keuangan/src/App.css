@@ -1,59 +1,198 @@
 /* src/App.css */
+
+/* ===== Warna yang dipakai berulang ===== */
+:root {
+  --biru: #1B365D;
+  --biru-terang: #2E5AA8;
+  --teks: #1F2937;
+  --abu: #6B7280;
+  --garis: #E5E7EB;
+  --merah: #DC2626;
+  --hijau: #16A34A;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #EEF2FF 0%, #E0F2FE 100%);
+}
+
 .wadah {
   max-width: 640px;
-  margin: 40px auto;
-  padding: 0 20px;
-  font-family: Arial, sans-serif;
-  color: #1F2937;
+  margin: 0 auto;
+  padding: 32px 20px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: var(--teks);
 }
 
-.judul {
-  color: #1B365D;
-  margin-bottom: 4px;
+/* ===== Animasi (keyframes) ===== */
+@keyframes muncul {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-.subjudul {
-  color: #6B7280;
-  margin-top: 0;
+@keyframes geser {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.5);
+  }
+
+  70% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes getar {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-6px);
+  }
+
+  75% {
+    transform: translateX(6px);
+  }
+}
+
+/* ===== Header dengan identitas ===== */
+.hero {
+  background: linear-gradient(135deg, var(--biru), var(--biru-terang));
+  color: #FFFFFF;
+  padding: 28px 24px;
+  border-radius: 16px;
   margin-bottom: 24px;
+  box-shadow: 0 10px 25px -5px rgba(27, 54, 93, 0.4);
+  animation: muncul 0.6s ease;
 }
 
+.hero h1 {
+  margin: 0 0 4px;
+  font-size: 26px;
+}
+
+.hero p {
+  margin: 0 0 16px;
+  opacity: 0.85;
+}
+
+.identitas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.identitas span {
+  background: rgba(255, 255, 255, 0.18);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+/* ===== Kartu ===== */
 .kartu {
   background: #FFFFFF;
-  border: 1px solid #D0D7DE;
-  border-radius: 10px;
+  border-radius: 14px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  animation: muncul 0.5s ease backwards;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.kartu:nth-of-type(2) {
+  animation-delay: 0.1s;
+}
+
+.kartu:nth-of-type(3) {
+  animation-delay: 0.2s;
+}
+
+.kartu:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
 }
 
 .kartu h2 {
   margin-top: 0;
   font-size: 18px;
-  color: #1B365D;
+  color: var(--biru);
 }
 
+/* ===== Form & tombol ===== */
 .baris {
   display: flex;
   gap: 8px;
 }
 
-.input {
+.input,
+.pilih {
   flex: 1;
-  padding: 10px;
+  padding: 10px 12px;
   border: 1px solid #D0D7DE;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pilih {
+  flex: none;
+}
+
+.input:focus,
+.pilih:focus {
+  outline: none;
+  border-color: var(--biru-terang);
+  box-shadow: 0 0 0 3px rgba(46, 90, 168, 0.2);
 }
 
 .tombol {
   padding: 10px 16px;
   border: none;
-  border-radius: 6px;
-  background: #1B365D;
+  border-radius: 8px;
+  background: var(--biru);
   color: #FFFFFF;
   font-weight: bold;
   cursor: pointer;
+  transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
+}
+
+.tombol:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tombol:active:not(:disabled) {
+  transform: scale(0.95);
 }
 
 .tombol:disabled {
@@ -62,7 +201,7 @@
 }
 
 .tombol-merah {
-  background: #DC2626;
+  background: var(--merah);
 }
 
 .tombol-abu {
@@ -70,10 +209,11 @@
 }
 
 .tombol-kecil {
-  padding: 6px 10px;
+  padding: 6px 12px;
   font-size: 12px;
 }
 
+/* ===== Daftar ===== */
 .daftar {
   list-style: none;
   padding: 0;
@@ -84,12 +224,31 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid #E5E7EB;
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--garis);
+  border-radius: 8px;
+  animation: geser 0.3s ease;
+  transition: background 0.2s;
+}
+
+.item:hover {
+  background: #F8FAFC;
 }
 
 .item span {
   flex: 1;
+  transition: color 0.3s;
+}
+
+.item span.nominal {
+  flex: none;
+}
+
+.item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--biru);
+  cursor: pointer;
 }
 
 .selesai {
@@ -98,41 +257,82 @@
 }
 
 .kosong {
-  color: #6B7280;
+  color: var(--abu);
   text-align: center;
   font-style: italic;
+  animation: muncul 0.4s ease;
 }
 
 .galat {
-  color: #DC2626;
+  color: var(--merah);
   font-size: 13px;
   margin: 6px 0 0;
+  animation: getar 0.4s;
 }
 
 .ringkasan {
   font-size: 14px;
   color: #374151;
+  margin: 0;
 }
 
-.pemasukan {
-  color: #16A34A;
-  font-weight: bold;
+.filter-baris {
+  margin-bottom: 12px;
 }
 
-.pengeluaran {
-  color: #DC2626;
+.aksi {
+  margin-top: 12px;
+  animation: muncul 0.3s ease;
+}
+
+/* ===== Penghitung & progres ===== */
+.angka {
+  display: inline-block;
+  font-size: 20px;
   font-weight: bold;
+  color: var(--biru-terang);
+  animation: pop 0.3s ease;
+}
+
+.progres {
+  height: 8px;
+  background: var(--garis);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 8px 0 16px;
+}
+
+.isi-progres {
+  height: 100%;
+  background: linear-gradient(90deg, #22C55E, #16A34A);
+  transition: width 0.5s ease;
+}
+
+/* ===== Khusus Catatan Keuangan (Tugas 3) ===== */
+.saldo-kartu {
+  text-align: center;
 }
 
 .saldo {
-  font-size: 22px;
+  font-size: 32px;
   font-weight: bold;
   margin: 0;
 }
 
-.pilih {
-  padding: 10px;
-  border: 1px solid #D0D7DE;
-  border-radius: 6px;
-  font-size: 14px;
+.pemasukan {
+  color: var(--hijau);
+  font-weight: bold;
+}
+
+.pengeluaran {
+  color: var(--merah);
+  font-weight: bold;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  color: var(--abu);
+  font-size: 13px;
+  margin-top: 24px;
 }
