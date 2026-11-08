@@ -68,6 +68,11 @@ function App() {
   // 5. Nilai turunan (dihitung dari state, bukan state baru)
   const jumlahSelesai = daftarTugas.filter((tugas) => tugas.selesai).length;
 
+  // Nilai turunan untuk progress bar (persen tugas selesai)
+  const persen = daftarTugas.length === 0
+    ? 0
+    : Math.round((jumlahSelesai / daftarTugas.length) * 100);
+
   // Tugas 1: saring daftar sesuai filter SEBELUM di-map
   const tugasTampil = daftarTugas.filter((tugas) => {
     if (filter === 'selesai') return tugas.selesai;
@@ -81,8 +86,14 @@ function App() {
 
   return (
     <div className="wadah">
-      <h1 className="judul">Daftar Tugas Praktikum</h1>
-      <p className="subjudul">Laboratorium Informatika - Modul 2: React Lanjutan</p>
+      <header className="hero">
+        <h1>Daftar Tugas Praktikum</h1>
+        <p>Laboratorium Informatika - Modul 2: React Lanjutan</p>
+        <div className="identitas">
+          <span>👤 Adriel Reihansyah Setiawan</span>
+          <span>🎓 NPM: 243040091</span>
+        </div>
+      </header>
 
       <Penghitung />
 
@@ -92,11 +103,16 @@ function App() {
 
       <Kartu judul="Daftar Tugas">
         <p className="ringkasan">
-          {jumlahSelesai} dari {daftarTugas.length} tugas selesai
+          {jumlahSelesai} dari {daftarTugas.length} tugas selesai ({persen}%)
         </p>
 
+        {/* Progress bar: lebarnya mengikuti persen */}
+        <div className="progres">
+          <div className="isi-progres" style={{ width: persen + '%' }}></div>
+        </div>
+
         {/* Tugas 1: tombol filter dengan className dinamis */}
-        <div className="baris" style={{ marginBottom: '12px' }}>
+        <div className="baris filter-baris">
           <button className={kelasFilter('semua')} onClick={() => setFilter('semua')}>Semua</button>
           <button className={kelasFilter('belum')} onClick={() => setFilter('belum')}>Belum Selesai</button>
           <button className={kelasFilter('selesai')} onClick={() => setFilter('selesai')}>Selesai</button>
@@ -124,15 +140,15 @@ function App() {
 
         {/* Tugas 2: tombol hanya muncul jika ada minimal 1 tugas selesai */}
         {jumlahSelesai > 0 && (
-          <button
-            className="tombol tombol-merah tombol-kecil"
-            style={{ marginTop: '12px' }}
-            onClick={hapusSelesai}
-          >
+          <button className="tombol tombol-merah tombol-kecil aksi" onClick={hapusSelesai}>
             Hapus Semua yang Selesai
           </button>
         )}
       </Kartu>
+
+      <footer className="footer">
+        © 2026 Adriel Reihansyah Setiawan · NPM 243040091
+      </footer>
     </div>
   );
 }

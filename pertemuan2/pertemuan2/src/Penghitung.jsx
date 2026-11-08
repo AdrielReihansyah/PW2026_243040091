@@ -15,7 +15,7 @@ function Penghitung() {
 
   return (
     <Kartu judul="Penghitung Klik">
-      <p>Tombol sudah diklik {jumlah} kali</p>
+      <p>Tombol sudah diklik <span className="angka" key={jumlah}>{jumlah}</span> kali</p>
 
       {/* Conditional rendering: pesan hanya muncul jika jumlah >= 5 */}
       {jumlah >= 5 && <p>Wah, kamu rajin sekali mengklik!</p>}
